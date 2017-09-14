@@ -1,4 +1,4 @@
-# From Chris C. Find the number of possible combinations of songs in a playlist with n songs, 
+# From Chris C. Find the number of possible combinations of songs in a playlist with n songs,
 # k songs before a song can be repeated, and l # songs in a playlist
 
 def numOfPlaylist(n, k, l)
@@ -23,16 +23,16 @@ def num_of_playlist2(n, k, l)
     (n - k)**(l - k)
   )
 end
-Add Comment Collapse
 
 
+# Fibonnaci sequence with 3 (1,1,1,3,5...). Use O(n) time and O(1) space
 
-2 new messages since 9:52 AM
-Mark as read (esc)
-
-Message @Chris Comings
-
-*bold* _italics_ ~strike~ `code` ```preformatted``` >quote
-Thread
-Ade Farquhar, Tianyu Duan, and 2 others
-Jonathan Chaney and David Corson-Knowles
+def fib3(n)
+  fibNums = {1=>1, 2=>1, 3=>1}
+  return fibNums[n] if n < 4
+  (4..n).each do |i|
+    fibNums[i] = fibNums[i-1]+fibNums[i-2]+fibNums[i-3]
+    fibNums.delete(i-3)
+  end
+  return fibNums[n]
+end

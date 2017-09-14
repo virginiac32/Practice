@@ -24,3 +24,4 @@ Style
 
 Algorithms
 - Implement all the core data structures and algorithms from scratch
+- Know big O
