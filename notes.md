@@ -1,3 +1,14 @@
+#### Questions
+
+What are all the different sorts?
+- Counting sort
+Which sorts are stable?
+- Stable: Insertion sort and quicksort
+- Not stable: in place quicksort
+Online sorts/algorithms - ones that can start computing as the inputs
+come in, without having the full input at the beginning
+
+
 #### Scoping
 
 #### Closures
