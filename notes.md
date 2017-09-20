@@ -68,3 +68,10 @@ Client-side refers to operations that are performed by the client in a client–
 #### HTTP
 https://github.com/appacademy/curriculum/blob/39e94694a11278c9bb02f3f00a89762ec789e6ce/rails/readings/http.md
 - TCP - transmission control protocol. Rules that govern the delivery of data over the internet and sets up a connection between the sending and receiving computers
+
+### Javascript
+
+#### Hoisting
+let and const are declared (space in memory is allocated) but not initialized (so there's a )
+var is declared and initialized at the top of the function, if you call it, it's returned as undefined.
+Actual assignment occurs later in the function
