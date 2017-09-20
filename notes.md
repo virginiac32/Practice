@@ -68,6 +68,26 @@ Client-side refers to operations that are performed by the client in a client–
 #### HTTP
 https://github.com/appacademy/curriculum/blob/39e94694a11278c9bb02f3f00a89762ec789e6ce/rails/readings/http.md
 - TCP - transmission control protocol. Rules that govern the delivery of data over the internet and sets up a connection between the sending and receiving computers
+- client-server model
+  - https://en.wikipedia.org/wiki/Client%E2%80%93server_model#Client-host_and_server-host
+  - A server host runs server programs which share their resources with clients. Clients don't share any resources but requests a server's content
+  - servers await incoming requests, clients initiate communication sessions
+  - ex. a web server serves web pages
+  - clients and servers use a request-response messaging pattern
+    - client sends a request, server returns a response.
+    - to formalize the data exchange, the server can implement an API (application programming interface) - which is an abstraction layer for accessing a services
+      - it restricts comms to a specific content format
+  - Denial of service attacks exploit a server's obligation to process requests by overloading it with requests
+- a network host is a computer connected to a comp network, may offer info resources, services, applications to nodes or users on the network. For networks that use the internet protocol suite, the computers are called IP hosts or internet hosts. They have IP addresses.
+  - network hosts are servers or client systems if they're in the client-server model
+  - All servers are hosts, but not all hosts are servers. Any device that has established a connection to a network qualifies as a host, whereas only hosts that accept connections from other devices (clients) qualify as servers.
+
+
+
+### Ruby
+for i in 0..5
+   puts "Value of local variable is #{i}"
+end
 
 ### Javascript
 
