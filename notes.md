@@ -26,8 +26,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop
 
 Has a stack, queue, and heap
 - Messages go into the queue, and a function is associated with each message
+  - When an event occurs on something that has an event listener attached, this adds a message to the queue
 - When the stack has capacity, a message is removed from the queue and processed
   - Processing calls the function, which adds a frame to the stack
+- Each message is processed completely before any other message is processed. So one function runs completely before any other functions run
+- Set Timeout - Calling setTimeout with a delay of 0 (zero) milliseconds doesn't execute the callback function after the given interval. The execution depends on the number of waiting tasks in the queue. In the example below, the message ''this is just a message'' will be written to the console before the message in the callback gets processed, because the delay is the minimum time required for the runtime to process the request, but not a guaranteed time. Basically, the setTimout needs to wait for all the codes to complete even though you specified a particular time limit for your setTimeout.
 
 
 #### Binary to Decimal
