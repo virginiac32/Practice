@@ -65,3 +65,75 @@ def countingSort4(n,arr)
 end
 
 print countingSort4(n,arr)
+
+
+# Simple Text Edit
+# Timed out - was too slow!
+
+n = gets.strip.to_i
+arr = []
+STDIN.read.split("\n").each do |a|
+    arr.push(a)
+end
+
+arr = arr.map do |el|
+        el.split(" ")
+end
+
+arr.each do |el|
+    el[0] = el[0].to_i
+    if el[1] && ("0".."9").include?(el[1])
+        el[1] = el[1].to_i
+    end
+end
+
+class Editor
+    def initialize
+        @S
+        @lastStates = []
+    end
+
+    def actions(arr)
+        arr.each do |el|
+            case el[0]
+                when 1
+                    append(el[1])
+                when 2
+                    delete(el[1])
+                when 3
+                    print(el[1])
+                when 4
+                    undo
+            end
+        end
+    end
+
+
+    def append(w)
+        @lastStates.push(@S)
+        if @S
+            @S = @S + w
+        else
+            @S = w
+        end
+    end
+
+
+    def delete(k)
+        indexToDelete = @S.length - k
+        @lastStates.push(@S)
+        @S = @S.slice(0,indexToDelete)
+    end
+
+    def print(k)
+        puts @S[k-1]
+    end
+
+    def undo()
+        @S = @lastStates.pop
+    end
+
+end
+
+editor = Editor.new
+editor.actions(arr)
