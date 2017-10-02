@@ -1,0 +1,30 @@
+## Code Review Talk w/ Asher
+- Asher leads a team of 3 engineers at AA, all working on their own products
+- 1. Think of what’s going to suck for the end user
+    - Includes testing - capybara tests to test from user perspective
+    - They’ll first go through the main user flows of the app
+    - Does a 20% code review - early check in that’s pretty quick
+        - The engineer should usually ask for this
+    - Then an 80-100% review to make sure it’s all working well
+- Doesn’t do a ton of tests, esp for features that they’re just trying out
+- 2. What’s going to take engineers time in the future & how can we save them time?
+    - Don’t need to write unnecessary comments
+- Catch maybe 80% of bugs in code reviews
+- Keep in mind what is actually going to make a difference/what is important when doing code reviews
+- Code review - in person or on your on, varies by company
+    - Sometimes in person all in a room
+    - Sometimes just a pull request on Github
+    - Asher tries to do a mix - review first to generate any questions, then talk it over together
+    - He has a checklist he can share
+        - If would be used on mobile, make sure it’s mobile friendly
+        - Test w/ weird inputs, try to break the app
+        - Watch out for existing users - don’t want to mess up the experience for them
+        - Think about the KPIs involved & track them
+- After review
+    - Separate tasks into pre-push and post-push
+        - Post-push can be done after pushing the code
+- For our own code
+    - Reduce repetition (even across files)
+    - For our projects, maybe employers would care more about different patterns (ex. The strategy, command pattern)
+        - Take a look at Ruby Design Pattern book
+    - Ensure your code looks good (ex. use linter)
