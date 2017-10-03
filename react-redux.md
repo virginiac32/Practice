@@ -192,3 +192,55 @@ Redux - JavaScript framework to manage frontend state of a web app
 - Thunk action creators - return a function instead of an object. Used to make async API requests
 - Reducers = functions that get called each time an action is dispatched
     - Reducer receives an action and the current state as args, then returns an updated state
+
+### Aaron Redux/React Review
+
+Redux: fetch things from database, save to store, make sure any components subscribed to that info get re-updated with the new props
+- Each react component has its own state and redux is how you manage all those states
+
+- Whenever rails renders, start at application.html. then actions that are rendered go into the <%= yield> (which is the root html that we wrote)
+- Application.js includes bundle plus all the other things we need (ex. Query)
+- In the hook/entry file, ReactDOM.render - renders the Root store={store} tag in root
+- JSX is react (writing html in a javascript file) (just like html.erb is for ruby)
+    - JSX interpolation {}
+    - JS interpolation `${}`
+- <Provider>this is jsx so everything between these two need to be written in JSX</Provider>
+- use Ajax to hit the database (which is jQuery), not rails because Rails doesn’t give us a good frontend
+- Every time you need to hit Ajax, you need a thunk action creator that first makes an Ajax call, then calls one of the action creators
+- Dispatch an action: first sends it through the middleware, then through the root reducer
+    - middleware, reducer, and state are all managed by the store. And store has a state that’s based on these things
+    - Reducer: takes in the slice of state plus the action, then sends out the new state
+- Be specific because the actions are passed to every reducer
+- DON’T nest states
+- Should still nest routes. Routes are passed an object with “match.params” - that’s done in a selector. So can use a nested route (the url) to create a selector that grabs what we want
+    - Anything that’s in a route has a “match”
+- mapStatetoProps: returns an object
+    - The selector in there selects the slice of state to send to the props
+- State in react is for a particular component (ex. What’s passed into a form). State in redux: redux manages everything, the state knows everything and only gives components the parts of state/actions/etc that they need
+- in actions, the thunk action creators: return API…. - returns JSON for our jbuilder views?
+- For every table in our schema, would want one key in our state tree
+- Use a selector to select for the comments for a post (for ex)
+- For one of the reducer parts, use merge because you want to update {entities} which is a nested component (Obj.assign doesn’t update nested?)
+- Object destructuring:
+    - B = function (c:{name, age}) if it’s 2 nested keys
+- Use classes when you want to take advantage of lifecycle methods
+- Create a container for an component when you want to subscribe it to a store (update state), or if you want to specify a different part of state that you want them to see other than what can be passed into them (like for items and Pokemon)
+    - Want containers so that a component cannot get access to more of the state than it needs (would mess it up)
+    - Components (through containers) are listening for changes in state of the store, and then asks for the new props when there is a change
+    - If there’s a dumb component (without a container), will not have listeners so won’t get updated with new props
+- Mounting is only for instantiating (ex. Calling new PokemonIndex({props}
+    - ComponentDidMount() - happens when the url matches the specific url for the component
+- How to decide if save in db or in the store: if you want it it to persist after the user refreshes. Each time you refresh, the store is destroyed and needs to be remade
+- PreventDefault: for if something has a default action (ex. A button doesn’t have default actions, but do need to use it if it’s a submit button that does have a default action). So pretty much only needed in a form
+
+### How to implement search
+Search:
+* <input onChange={handleChange} /> hits the api
+* Show a search bar with results showing up below, and enter button
+* api you hit should be: get “api/search”, to: “controller_name#method_name
+    * Creates a route
+* Class controller_name
+    * Def search
+        * Playlist.where(“title LIKE ‘%?%’, params[:query])
+* Render “api/whatever”
+* Have a reducer to handle the search results
