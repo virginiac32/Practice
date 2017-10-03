@@ -129,3 +129,13 @@ Ex:
 $("#btn_1").click(function() {
   alert("Btn 1 Clicked");
 });
+
+
+#### Ruby/OOP
+- Define class methods with def self.method_name
+    - And then to call it, use Deck.method_name
+    - Calling instance variables use @cards
+- GRASP: In general, you are trying to put the methods in a class that has the most knowledge of how to implement the method, in the class that serves as a controller for other classes, and in a way the minimizes the number of cross-dependencies between each class.
+- Coupling is how dependent your classes are on each other and cohesion means how related are the functions/methods of a class/module.
+    - What you are looking for in your code is low coupling, high cohesion. 
+- The Single Responsibility Principle says that a class should have one, and only one, reason to change.
