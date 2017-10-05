@@ -91,3 +91,35 @@ result =
       y
     end
 ```
+- Favor modifier while/until usage when you have a single-line body.
+```ruby
+do_something while some_condition
+```
+- Use Kernel#loop instead of while/until when you need an infinite loop.
+```ruby
+loop do
+  do_something
+end
+```
+- Use Kernel#loop with break rather than begin/end/until or begin/end/while for post-loop tests.
+```ruby
+loop do
+  puts val
+  val += 1
+  break unless val < 0
+end
+```
+- Use the proc invocation shorthand when the invoked method is the only operation of a block.
+```ruby
+names.map(&:upcase)
+```
+- Don't use the return value of = (an assignment) in conditional expressions unless the assignment is wrapped in parentheses.
+```ruby
+if (v = array.grep(/foo/))
+  do_something(v)
+end
+v = array.grep(/foo/)
+if v
+  do_something(v)
+end
+```
