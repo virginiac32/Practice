@@ -20,7 +20,7 @@ Some places have laptop coding:
   - run tests, handle errors
 
 Style
-- Use a style guideline!!! Look some up. Follow it!
+- Use a style guideline! Look some up. Follow it.
 
 Algorithms
 - Implement all the core data structures and algorithms from scratch

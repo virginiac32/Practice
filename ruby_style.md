@@ -123,3 +123,159 @@ if v
   do_something(v)
 end
 ```
+- Use &&= to preprocess variables that may or may not exist. Using &&= will change the value only if it exists, removing the need to check its existence with if
+  - bad:
+  ```ruby
+  if something
+  something = something.downcase
+end
+  ```
+  - best:
+  ```ruby
+  something &&= something.downcase
+  ```
+- Prefer proc over Proc.new
+  - bad:
+  ```ruby
+  p = Proc.new { |n| puts n }
+  ```
+  - good:
+  ```ruby
+  p = proc { |n| puts n }
+  ```
+- Prefer proc.call() over proc[] or proc.() for both lambdas and procs
+- Use $stdout/$stderr/$stdin instead of STDOUT/STDERR/STDIN. STDOUT/STDERR/STDIN are constants, and while you can actually reassign (possibly to redirect some stream) constants in Ruby, you'll get an interpreter warning if you do so.
+- Use Array() instead of explicit Array check when dealing with a variable you want to treat as an Array, but you're not certain it's an array.
+  - bad:
+  ```ruby
+  paths = [paths] unless paths.is_a? Array
+paths.each { |path| do_something(path) }
+  ```
+  - good:
+  ```ruby
+  Array(paths).each { |path| do_something(path) }
+  ```
+- Use ranges.include? or Comparable#between? instead of complex comparison logic when possible.
+- Avoid the use of BEGIN blocks.
+- Prefer next in loops instead of conditional blocks.
+  - bad:
+  ```ruby
+  [0, 1, 2, 3].each do |item|
+      if item > 1
+        puts item
+      end
+  end
+  ```
+  - good:
+  ```ruby
+  [0, 1, 2, 3].each do |item|
+      next unless item > 1
+      puts item
+  end
+  ```
+- `flat_map` maps and flattens (flattens by 1 level)
+- use `reverse_each` over `reverse.each`
+
+#### Naming
+- Use snake_case for symbols, methods and variables.
+- Use CamelCase for classes and modules. (Keep acronyms like HTTP, RFC, XML uppercase.)
+- Use snake_case for naming files and directories, e.g. hello_world.rb, lib/hello_world/hello_world.rb
+- Aim to have just a single class/module per source file. Name the file name as the class/module, but replacing CamelCase with snake_case.
+- Use SCREAMING_SNAKE_CASE for other constants.
+- The names of predicate methods (methods that return a boolean value) should end in a question mark. (i.e. Array#empty?)
+- Define the non-bang (safe) method in terms of the bang (dangerous) one if possible.
+```ruby
+def flatten_once
+    dup.flatten_once!
+  end
+```
+
+#### Comments
+- Comment only when necessary
+- Comments longer than a word are capitalized and use punctuation. Use one space after periods.
+
+##### Comment Annotations
+- Annotations should usually be written on the line immediately above the relevant code.
+- Format, for multiple lines indent the next lines
+```ruby
+def bar
+    # FIXME: This has crashed occasionally since v3.2.1. It may
+    #   be related to the BarBazUtil upgrade.
+    baz(:quux)
+end
+```
+- Examples: TODO, FIXME, OPTIMIZE, HACK (to note code smells where questionable coding practices were used and should be refactored away.), REVIEW
+
+#### Classes & modules
+- Use a consistent ordering
+```ruby
+class Person
+    # extend and include go first
+    extend SomeModule
+    include AnotherModule
+
+    # inner classes
+    CustomError = Class.new(StandardError)
+
+    # constants are next
+    SOME_CONSTANT = 20
+
+    # afterwards we have attribute macros
+    attr_reader :name
+
+    # followed by other macros (if any)
+    validates :name
+
+    # public class methods are next in line
+    def self.some_method
+    end
+
+    # initialization goes between class methods and other instance methods
+    def initialize
+    end
+
+    # followed by other public instance methods
+    def some_method
+    end
+
+    # protected and private methods are grouped near the end
+    protected
+
+    def some_protected_method
+    end
+
+    private
+
+    def some_private_method
+    end
+end
+```
+- Prefer modules to classes with only class methods. Classes should be used only when it makes sense to create instances out of them.
+- Favor the use of module_function over extend self when you want to turn a module's instance methods into class methods.
+- Use SOLID principles
+- Always supply a proper to_s method for classes that represent domain objects.
+- Prefer duck-typing over inheritance
+- Assign proper visibility levels to methods (private, protected) in accordance with their intended usage. Don't go off leaving everything public (which is the default).
+
+#### Exceptions
+- Do not return from an ensure block. If you explicitly return from a method inside an ensure block, the return will take precedence over any exception being raised, and the method will return as if no exception had been raised at all. In effect, the exception will be silently thrown away
+- Use implicit begin blocks where possible
+```ruby
+def foo
+  # main logic goes here
+rescue
+  # failure handling goes here
+end
+```
+- Put more specific exceptions higher up the rescue chain, otherwise they'll never be rescued from.
+- Release external resources obtained by your program in an ensure block.
+```ruby
+f = File.open('testfile')
+begin
+  # .. process
+rescue
+  # .. handle error
+ensure
+  f.close if f
+end
+```
