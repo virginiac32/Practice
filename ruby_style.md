@@ -279,3 +279,42 @@ ensure
   f.close if f
 end
 ```
+
+#### Collections
+- Prefer literal array and hash creation notation (unless you need to pass parameters to their constructors, that is).
+  - bad:
+  ```ruby
+  arr = Array.new
+  hash = Hash.new
+  ```
+  - good:
+  ```ruby
+  arr = []
+  arr = Array.new(10)
+  hash = {}
+  hash = Hash.new(0)
+  ```
+- Prefer %w (white space separated array) to the literal array syntax when you need an array of words (non-empty strings without spaces and special characters in them). Apply this rule only to arrays with two or more elements. And %i for array of symbols
+```ruby
+STATES = %w[draft open closed]
+```
+- When accessing the first or last element from an array, prefer first or last over [0] or [-1]
+##### Hashes
+- Avoid the use of mutable objects as hash keys.
+- Use Hash#each_key instead of Hash#keys.each and Hash#each_value instead of Hash#values.each.
+- Use Hash#fetch when dealing with hash keys that should be present.
+  - `heroes.fetch(:supermann)` would raise a KeyError if the key doesn't exists
+  - Use it instead of `heroes[:supermann]` which just returns nil
+- Use Hash#values_at when you need to retrieve several values consecutively from a hash
+  - `email, username = data.values_at('email', 'nickname')`
+
+#### Strings
+- Prefer string interpolation and string formatting instead of string concatenation (+):
+  - Good
+  ```ruby
+  email_with_name = "#{user.name} <#{user.email}>"
+  ```
+  - Good
+  ```ruby
+  email_with_name = format('%s <%s>', user.name, user.email)
+  ```
